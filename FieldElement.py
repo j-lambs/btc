@@ -1,8 +1,9 @@
 class FieldElement:
     """
-    This class is a class for Field Elements, or elements of a Finite Field / Galois Field.
-    Functions include addition, subtraction, multipication, division, all of which are in line
-    with the properties of a finite field which are...
+    This class is a class for Field Elements, or elements of a Finite Field 
+    / Galois Field.
+    Functions include addition, subtraction, multipication, division, all 
+    of which are in line with the properties of a finite field which are...
     1. Elements being closed under addition and subtraction.
     2. 0 existing and being the additive identity.
     3. 1 existing and being the multiplicative identity.
@@ -55,7 +56,7 @@ class FieldElement:
     def __truediv__(self, other):
         if self.prime != other.prime:
             raise TypeError('Cannot divide two numbers in different Fields')
-        # Taking advantage of Fermat's Little Theorem to turn division -> multiplication
+        # Take advantage of Fermat's Little Theorem to turn division -> multiplication
         num = (self.num * pow(other.num, self.prime - 2, self.prime)) % self.prime
         return self.__class__(num, self.prime)
     
