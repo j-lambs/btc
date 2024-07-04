@@ -1,0 +1,5 @@
+1. How to import a module (file) from a parent directory
+import sys
+sys.path.append('../parent_dir')
+from module_in_parent_dir import module
+

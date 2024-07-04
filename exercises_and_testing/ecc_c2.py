@@ -1,23 +1,9 @@
+import sys
+sys.path.append('../btc')
 from FieldElement import FieldElement
 from Point import Point
 
 if __name__=="__main__": 
-    # C1
-    a = FieldElement(3, 31)
-    b = FieldElement(24, 31)
-
-    # check division
-    div1 = 3 * pow(24, 31 - 2, 31) % 31
-    print(div1)
-    div2 = (a / b).num
-    print(div1 == div2)
-
-    # check exp
-    a = FieldElement(7, 13)
-    b = FieldElement(8, 13)
-    print(a**-3)
-    print(pow(7, 3, 13)**11 % 13)
-
     # point stuff
     # C2, E1, let curve be: y^2 = x^3 + 5a + 7
     a = 5
@@ -42,5 +28,4 @@ if __name__=="__main__":
     p1 = Point(-1, -1, a, b)
     p2 = Point(2, 5, a, b)
     p3 = p1 + p2    # (3, -7)
-    
     
