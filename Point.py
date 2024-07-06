@@ -70,11 +70,11 @@ class Point:
                 if self.y.num == 0:
                     return self.__class__(None, None, self.a, self.b)
                 else:
-                    #TODO: change to derivative eqs
-                    slope = (FieldElement(3, self.x.prime) * self.x**2 + self.a) / (FieldElement(2, self.x.prime) / self.y)
+                    slope = (FieldElement(3, self.x.prime) * self.x**2 + self.a) / (FieldElement(2, self.x.prime) * self.y)
                     x3 = slope**2 - (FieldElement(2, self.x.prime) * self.x)
                     y3 = slope * (self.x - x3) - self.y
                     return self.__class__(x3, y3, self.a, self.b)
+            # primitives
             # Case: tangent is vertical
             elif self.y == 0:
                 return self.__class__(None, None, self.a, self.b)
@@ -82,3 +82,15 @@ class Point:
             x3 = slope**2 - (2 * self.x)
             y3 = slope * (self.x - x3) - self.y
             return self.__class__(x3, y3, self.a, self.b)
+        
+    def __rmul__(self, coefficient):
+        coef = coefficient
+        current = self
+        res = self.__class__(None, None, self.a, self.b)
+        while coef:
+            if coef & 1: # if rightmost (least signif) bit is 1
+                res += current
+            current += current
+            coef >>= 1
+        return res
+

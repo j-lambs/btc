@@ -3,3 +3,9 @@ import sys
 sys.path.append('../parent_dir')
 from module_in_parent_dir import module
 
+2. bit stuff in python
+shifting bits: num >>= spots_shifted or num <<= spots_shifted
+num & 1: is num's least signif bit = 1?
+bin(num): prints num in binary from
+
+
