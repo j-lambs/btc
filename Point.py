@@ -1,3 +1,5 @@
+from FieldElement import FieldElement
+
 class Point:
     """
     A class for points on a elliptic curve.
@@ -12,8 +14,8 @@ class Point:
         if self.x is None and self.y is None:
             return
         # check if point is on elliptical curve
-        if self.y**2 != self.x**3 + a * x + b:
-            raise ValueError('({}, {}) is not on the curve'.format(x, y))
+        if self.y**2 != self.x**3 + (a * self.x) + self.b:
+            raise ValueError(f'({x}, {y}) is not on the curve')
         
     def on_curve(self, x, y):
         """
@@ -27,9 +29,13 @@ class Point:
         return False
 
     def __repr__(self) -> str:
-        if self.x != None and self.y != None:
-            return f'Point({self.x}, {self.y})_{self.a}_{self.b}'
-        return 'Point(infinity)'
+        if self.x is None:
+            return 'Point(infinity)'
+        elif isinstance(self.x, FieldElement):
+            return 'Point({},{})_{}_{} FieldElement({})'.format(
+                self.x.num, self.y.num, self.a.num, self.b.num, self.x.prime)
+        else:
+            return 'Point({},{})_{}_{}'.format(self.x, self.y, self.a, self.b)
     
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y and self.a == other.a and self.b == other.b
@@ -58,10 +64,19 @@ class Point:
             y3 = slope * (self.x - x3) - self.y
             return self.__class__(x3, y3, self.a, self.b)
 
-        # x1 = x2
         if self == other:
+            if isinstance(other.x, FieldElement):
+                # Case: tangent is vertical
+                if self.y.num == 0:
+                    return self.__class__(None, None, self.a, self.b)
+                else:
+                    #TODO: change to derivative eqs
+                    slope = (FieldElement(3, self.x.prime) * self.x**2 + self.a) / (FieldElement(2, self.x.prime) / self.y)
+                    x3 = slope**2 - (FieldElement(2, self.x.prime) * self.x)
+                    y3 = slope * (self.x - x3) - self.y
+                    return self.__class__(x3, y3, self.a, self.b)
             # Case: tangent is vertical
-            if self.y == 0:
+            elif self.y == 0:
                 return self.__class__(None, None, self.a, self.b)
             slope = (other.y - self.y) / (other.x - self.x)
             x3 = slope**2 - (2 * self.x)
