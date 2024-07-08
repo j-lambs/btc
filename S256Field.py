@@ -7,6 +7,6 @@ class S256Field(FieldElement):
     """
     """
     def __init__(self, num, prime=None):
-        super().__init__(num, prime)
+        super().__init__(num, prime=P)
     def __repr__(self):
         return '{:x}'.format(self.num).zfill(64)

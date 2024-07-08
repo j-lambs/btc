@@ -1,7 +1,9 @@
 from FieldElement import FieldElement
 from Point import Point
 from exercises_and_testing import ecc_c3
-from S256Point import S256Point, G, N
+# from S256Point import S256Point
+from S256Point import G
+from S256Point import N
 from S256Field import S256Field
 
 a = 0
