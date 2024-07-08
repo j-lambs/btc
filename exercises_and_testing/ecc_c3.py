@@ -3,21 +3,31 @@ sys.path.append('../btc')
 from FieldElement import FieldElement
 from Point import Point
 
-def exercise_1_on_curve(x, y):
-    prime = 223
+def exercise_1_on_curve(x, y, prime) -> bool:
     y_side = y**2 % prime
     x_side = (pow(x, 3, prime) + 7) % prime
     if y_side == x_side:
         return True
     return False
+def get_order_of_point(p: Point):
+    next_p = p + p
+    order = 2
+    point_at_inf = Point(None, None, p.a, p.b)
+    while next_p != point_at_inf:
+        order += 1
+        next_p = next_p + p
+        # print(next_p)
+        
+    return order
 
 if __name__=="__main__": 
     # E1
-    # print(exercise_1_on_curve(192, 105))
-    # print(exercise_1_on_curve(17, 56))
-    # print(exercise_1_on_curve(200, 119))
-    # print(exercise_1_on_curve(1, 193))
-    # print(exercise_1_on_curve(42, 99))
+    prime = 223
+    # print(exercise_1_on_curve(192, 105, prime))
+    # print(exercise_1_on_curve(17, 56, prime))
+    # print(exercise_1_on_curve(200, 119, prime))
+    # print(exercise_1_on_curve(1, 193, prime))
+    # print(exercise_1_on_curve(42, 99, prime))
 
     # E2
     # prime = 223
@@ -53,13 +63,4 @@ if __name__=="__main__":
     x0 = FieldElement(15, prime)
     y0 = FieldElement(86, prime)
     p0 = Point(x0, y0, a, b)
-    next_p = p0 + p0
-    print(next_p)
-    order = 2
-    point_at_inf = Point(None, None, a, b)
-    while next_p != point_at_inf:
-        order += 1
-        next_p = next_p + p0
-        print(next_p)
-        
-    print(order)
+    print(get_order_of_point(p0))

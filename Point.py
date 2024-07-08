@@ -84,6 +84,9 @@ class Point:
             return self.__class__(x3, y3, self.a, self.b)
         
     def __rmul__(self, coefficient):
+        """
+        rmul takes advantage of scalar multiplication's/point addition's/mathematical groups' property of associativity.
+        """
         coef = coefficient
         current = self
         res = self.__class__(None, None, self.a, self.b)

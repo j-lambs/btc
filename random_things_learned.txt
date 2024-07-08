@@ -8,4 +8,13 @@ shifting bits: num >>= spots_shifted or num <<= spots_shifted
 num & 1: is num's least signif bit = 1?
 bin(num): prints num in binary from
 
+3. show hidden files and directories on macos.
+cmd + shift + .
+
+4. untracking directories from a git repo
+https://stackoverflow.com/questions/24290358/remove-a-folder-from-git-tracking
+    1. add path to directory in .gitignore file
+    2. Remove the folder from your local git tracking, but keep it on your disk.
+git rm -r --cached path_to_your_folder/
+    3. Push your changes to your git repo.
 
