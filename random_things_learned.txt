@@ -18,3 +18,13 @@ https://stackoverflow.com/questions/24290358/remove-a-folder-from-git-tracking
 git rm -r --cached path_to_your_folder/
     3. Push your changes to your git repo.
 
+5. Fermat's Little Theorem & Corollaries
+Let n be an elt of Z+, let p be a prime number,
+Then n^(p-1) % p = 1.
+Result of Fermat's Little Theorem:
+Let a, b be ints in a finite field (and operations being that of finite fields).
+Suppose a/b
+Then a/b = a * (1/b) = a * b^-1
+We know that b^(p-1) = 1 from Fermat's Little Theorem
+Then b^-1 = b^-1 * 1 = b^-1 * b^(p-1) = b^(p-2)
+Or b^-1 = b^(p-2)
