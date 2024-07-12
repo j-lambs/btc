@@ -3,6 +3,7 @@ sys.path.append('../btc')
 from FieldElement import FieldElement
 from Point import Point
 from S256Point import S256Point, G, N
+from c3helper import hash256
 
 #TODO: Figure out .gitignore for programming bitcoin
 
@@ -78,4 +79,21 @@ if __name__=="__main__":
     u = z * pow(s, N-2, N) % N
     v = r * pow(s, N-2, N) % N
     print((u*G + v*point).x.num == r)
+    
+    # Creating a Signature
+    e = int.from_bytes(hash256(b'my secret'), 'big')
+    z = int.from_bytes(hash256(b'my message'), 'big')
+    k = 1234567890
+    r = (k*G).x.num
+    k_inv = pow(k, N-2, N)
+    s = (z + r * e) * k_inv % N
+    point = e*G
+    print(point)
+
+    # C3E7
+    """
+    its just the same as above? lol
+    """
+    e = 12345
+    z = int.from_bytes(hash256('Programming Bitcoin!'), 'big')
     
